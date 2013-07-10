@@ -4,7 +4,7 @@ node.set['apache']['default_modules'] = [
     "headers",
     "php5"
 ]
-node.set['apache']['default_site_enabled'] = "foobar"
+node.set['apache']['default_site_enabled'] = true
 node.set['mysql']['server_root_password'] = "foobar"
 node.set['mysql']['server_repl_password'] = "foobar"
 node.set['mysql']['server_debian_password'] = "foobar"
@@ -18,9 +18,3 @@ include_recipe "apache2"
 include_recipe "jolicode-php"
 include_recipe "mysql"
 include_recipe "mysql::server"
-
-web_app "my_site" do
-  server_name node['hostname']
-  server_aliases [node['fqdn'], "my-site.example.com"]
-  docroot "/var/www"
-end
