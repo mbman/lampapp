@@ -1,0 +1,16 @@
+name              "mb-lamp"
+maintainer        "Mario Baricevic"
+maintainer_email  "mario.baricevic@gmail.com"
+license           "GPL"
+description       "Installs and configures a full LAMP server"
+long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version           "0.0.1"
+recipe            "mb-lamp", "Includes the LAMP recipe to configure server"
+
+depends "apt", "<= 1.8.2"
+depends "openssl"
+depends "build-essential"
+depends "jolicode-php"
+depends "apache2"
+depends "mysql"
+depends "mysql::server"
