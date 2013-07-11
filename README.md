@@ -1,17 +1,16 @@
 DESCRIPTION
 ===========
 
-A Vagrant Chef recipe for setting up LAMP webapps on Ubuntu / Debian systems.
+A Vagrant Chef recipe for setting up LAMP webapp virtual machine server for your project.
 
 Creates a MySQL DB and apache2 virtual host with ssl support.
 
-Vritual host alias is vagrant.dev with wildcard subdomains and ssl support.
-'vagrant' is the default lampapp "name" recipe attribute.
+Virtual host alias is "vagrant.dev" with wildcard subdomains and 
+auto-generated self-signed SSL cerfiticate support.
 
 Current project dir will be shared to virtualhost's root dir.
 
-Mysql can be accessed remotley via 192.168.56.101 ip address as root:foobar
-'foobar' is the default lamapp "password" recipe attribute.
+Mysql can be accessed remotley via node["lampapp"]["ip"] attribute IP as root:foobar
 
 REQUIREMENTS
 ============
@@ -23,6 +22,7 @@ The following cookbooks are required:
     - mysql
     - database
     - ssl-cookbok
+    - jolicode-php
 
 More Cookbooks info
 
@@ -52,7 +52,8 @@ a static IP adresss which you can map to ":name.dev" domain in you hosts config:
             chef.json.merge!({
                 :lampapp => {
                     :name => "vagrant",
-                    :password => "foobar"
+                    :password => "foobar",
+                    :ip => "192.168.56.101"
                 }
             })
         end
