@@ -18,7 +18,7 @@ REQUIREMENTS
 
 The following cookbooks are required:
 
-    - apt
+    - apt 1.8.0
     - apache2
     - mysql
     - database
