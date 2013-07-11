@@ -1,7 +1,7 @@
 node.set['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires}
 node.set['apache']['default_site_enabled'] = true
 
-node['php']['directives'] = {
+node.set['php']['directives'] = {
     :display_errors => "On",
     :error_reporting => "E_ALL",
     :upload_max_filesize => "128M",
