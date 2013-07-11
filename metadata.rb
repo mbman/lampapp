@@ -7,10 +7,11 @@ long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           "0.0.1"
 recipe            "lampapp", "Includes the LAMP recipe to configure a typical web app"
 
-depends "apt", "<= 1.8.2"
-depends "openssl"
+depends "apt", "1.8.0"
 depends "build-essential"
+depends "php"
 depends "jolicode-php"
+depends "jolicode-php::composer"
 depends "apache2"
 depends "mysql"
 depends "mysql::server"
