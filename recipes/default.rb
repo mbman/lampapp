@@ -19,3 +19,14 @@ include_recipe "jolicode-php"
 include_recipe "mysql"
 include_recipe "mysql::server"
 include_recipe "database"
+include_recipe "database::mysql"
+
+
+mysql_database node['lampapp']['name'] do
+    connection ({
+        :host => node['lampapp']['ip'], 
+        :username => 'root', 
+        :password => node['mysql']['server_root_password']
+    })
+    action :create
+end

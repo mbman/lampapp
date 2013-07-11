@@ -20,7 +20,9 @@ The following cookbooks are required:
     - apt 1.8.0
     - apache2
     - mysql
+    - mysql::server
     - database
+    - database::mysql
     - ssl-cookbok
     - jolicode-php
 
