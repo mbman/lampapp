@@ -3,7 +3,7 @@ DESCRIPTION
 
 A Vagrant Chef recipe for setting up LAMP webapps on Ubuntu / Debian systems.
 
-Creates a MySQL DB and a apache2 virtual host with ssl support.
+Creates a MySQL DB and apache2 virtual host with ssl support.
 
 Vritual host alias is vagrant.dev with wildcard subdomains and ssl support.
 'vagrant' is the default lampapp "name" recipe attribute.
