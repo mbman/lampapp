@@ -11,6 +11,7 @@ The following cookbooks are required:
     - apt
     - apache2
     - mysql
+    - database
     - ssl-cookbok
 
 More Cookbooks info
