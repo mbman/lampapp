@@ -5,7 +5,7 @@ license           "GPL"
 description       "Installs and configures a full LAMP server for a webapp"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           "0.0.1"
-recipe            "mb-lamp", "Includes the LAMP recipe to configure a typical web app"
+recipe            "lampapp", "Includes the LAMP recipe to configure a typical web app"
 
 depends "apt", "<= 1.8.2"
 depends "openssl"
