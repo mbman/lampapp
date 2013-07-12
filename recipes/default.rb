@@ -1,5 +1,5 @@
-node.set['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires}
-node.set['apache']['default_site_enabled'] = true
+node.set['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires ssl}
+node.set['apache']['default_site_enabled'] = false
 
 # php 5.4 support
 node.default['jolicode-php']['dotdeb'] = true
@@ -69,6 +69,9 @@ jolicode_php_composer "Install/update Composer dependencies" do
     options "--dev"
     action :update
 end
+
+# create mysql DB
+lampapp node['lampapp']['name']
 
 # create mysql DB
 mysql_database node['lampapp']['name'] do

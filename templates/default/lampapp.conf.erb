@@ -1,0 +1,50 @@
+<VirtualHost *:80>
+    ServerAdmin admin@localhost
+    ServerName <%= @params[:name] %>.dev
+    ServerAlias www.<%= @params[:name] %>.dev *.<%= @params[:name] %>.dev  *.<%= @params[:name] %>.*
+
+    DocumentRoot /var/www
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride None
+    </Directory>
+    <Directory /var/www>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        allow from All
+    </Directory>
+
+    LogLevel info
+
+    ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
+    CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
+
+</VirtualHost>
+<VirtualHost *:443>
+    ServerAdmin admin@localhost
+    ServerName <%= @params[:name] %>.dev
+    ServerAlias www.<%= @params[:name] %>.dev *.<%= @params[:name] %>.dev  *.<%= @params[:name] %>.*
+
+    DocumentRoot /var/www
+    <Directory />
+        Options FollowSymLinks
+        AllowOverride None
+    </Directory>
+    <Directory /var/www>
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order allow,deny
+        allow from All
+    </Directory>
+    
+    LogLevel info
+
+    ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-ssl-error.log
+    CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-ssl-access.log combined
+
+    SSLEngine on
+    SSLOptions +StrictRequire
+    SSLCertificateFile /etc/apache2/ssl/server.crt
+    SSLCertificateKeyFile /etc/apache2/ssl/server.key
+</VirtualHost>
