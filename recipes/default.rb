@@ -1,11 +1,6 @@
 node.set['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires ssl}
 node.set['apache']['default_site_enabled'] = false
 
-# php 5.4 support
-node.set['jolicode-php']['dotdeb'] = true
-node.default['jolicode-php']['conf_dir'] = "/etc/php5/apache2"
-node.default['jolicode-php']['config']['display_errors'] = "On"
-
 # SSL certificate
 node.set['selfsigned_certificate'] = {
     :country => "HR",
@@ -44,34 +39,37 @@ end
 
 execute "apt-get update"
 
-include_recipe "apache2"
 include_recipe "selfsigned_certificate"
-include_recipe "jolicode-php"
-include_recipe "jolicode-php::php"
-include_recipe "jolicode-php::composer"
-include_recipe "jolicode-php::ext-curl"
-include_recipe "jolicode-php::ext-gd"
-include_recipe "jolicode-php::ext-imagick"
-include_recipe "jolicode-php::ext-intl"
-include_recipe "jolicode-php::ext-mbstring"
-include_recipe "jolicode-php::ext-twig"
 include_recipe "mysql"
 include_recipe "mysql::server"
 include_recipe "database"
 include_recipe "database::mysql"
-
-# run composer in project root
-if ::File.exists?("/var/www/composer.json")
-    jolicode_php_composer "Install/update Composer dependencies" do
-        cwd "/var/www"
-        user "vagrant"
-        options "--dev"
-        action :update
-    end
+include_recipe "xml"
+include_recipe "php"
+php_pear "xdebug" do
+  zend_extensions ['xdebug.so']
+  action :install
 end
-
-# create mysql DB
-lampapp node['lampapp']['name']
+php_pear "APC" do
+  action :install
+  directives(:shm_size => 128, :enable_cli => 1)
+end
+php_pear "memcache" do
+  action :install
+end
+package "php5-gd" do
+  action :install
+end
+package "php5-imagick" do
+  action :install
+end
+package "php5-curl" do
+  action :install
+end
+package "php5-intl" do
+  action :install
+end
+include_recipe "apache2"
 
 # create mysql DB
 mysql_database node['lampapp']['name'] do
@@ -82,3 +80,6 @@ mysql_database node['lampapp']['name'] do
     })
     action :create
 end
+
+# default app
+lampapp node['lampapp']['name']
