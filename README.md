@@ -22,7 +22,9 @@ The following cookbooks are required:
     - apache2
     - mysql
     - database
-    - jolicode-php
+    - openssl
+    - xml
+    - php
     - selfsigned_certificate
 
 More Cookbooks info
