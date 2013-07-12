@@ -9,11 +9,7 @@ recipe            "lampapp", "Includes the LAMP recipe to configure a typical we
 
 depends "apt", "1.8.0"
 depends "build-essential"
-depends "php"
 depends "jolicode-php"
-depends "jolicode-php::composer"
 depends "apache2"
 depends "mysql"
-depends "mysql::server"
 depends "database"
-depends "database::mysql"

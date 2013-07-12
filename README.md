@@ -23,7 +23,6 @@ The following cookbooks are required:
     - mysql::server
     - database
     - database::mysql
-    - ssl-cookbok
     - jolicode-php
 
 More Cookbooks info

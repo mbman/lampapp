@@ -1,12 +1,10 @@
 node.set['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires}
 node.set['apache']['default_site_enabled'] = true
 
-node.set['php']['directives'] = {
-    :display_errors => "On",
-    :error_reporting => "E_ALL",
-    :upload_max_filesize => "128M",
-    :post_max_size => "128M"
-}
+# php 5.4 support
+node.default['jolicode-php']['dotdeb'] = true
+node.default['jolicode-php']['conf_dir'] = "/etc/php5/apache2"
+node.default['jolicode-php']['config']['display_errors'] = "On"
 
 node.set['mysql']['server_root_password'] = node['lampapp']['password']
 node.set['mysql']['server_repl_password'] = node['lampapp']['password']
@@ -17,9 +15,6 @@ node.set['mysql']['remove_test_database'] = true
 # allow mysqladmin connections from any host
 node.set['mysql']['allow_remote_root'] = true
 node.set['mysql']['bind_address'] = node['lampapp']['ip']
-
-# php 5.4 support
-node.set['jolicode-php']['dotdeb'] = true
 
 include_recipe "apt"
 include_recipe "build-essential"
@@ -37,38 +32,24 @@ end
 execute "apt-get update"
 
 include_recipe "apache2"
-include_recipe "php"
-# install php modules
-php_pear "xdebug" do
-  # Specify that xdebug.so must be loaded as a zend extension
-  zend_extensions ['xdebug.so']
-  action :install
-end
-php_pear "memcache" do
-  action :install
-end
-package "php5-apc" do
-  action :install
-end
-package "php5-gd" do
-  action :install
-end
-package "php5-curl" do
-  action :install
-end
-package "php5-imagick" do
-  action :install
-end
-
 include_recipe "jolicode-php"
+include_recipe "jolicode-php::php"
 include_recipe "jolicode-php::composer"
+include_recipe "jolicode-php::ext-apc"
+include_recipe "jolicode-php::ext-curl"
+include_recipe "jolicode-php::ext-gd"
+include_recipe "jolicode-php::ext-imagick"
+include_recipe "jolicode-php::ext-intl"
+include_recipe "jolicode-php::ext-mbstring"
+include_recipe "jolicode-php::ext-twig"
+include_recipe "jolicode-php::ext-xdebug"
 include_recipe "mysql"
 include_recipe "mysql::server"
 include_recipe "database"
 include_recipe "database::mysql"
 
 # run composer in project root
-jolicode_php_composer "Install/update my dependencies" do
+jolicode_php_composer "Install/update Composer dependencies" do
     cwd "/var/www"
     user "vagrant"
     options "--dev"
