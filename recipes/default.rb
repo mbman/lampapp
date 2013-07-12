@@ -2,7 +2,7 @@ node.set['apache']['default_modules'] = %w{rewrite deflate headers php5 env expi
 node.set['apache']['default_site_enabled'] = false
 
 # php 5.4 support
-node.default['jolicode-php']['dotdeb'] = true
+node.set['jolicode-php']['dotdeb'] = true
 node.default['jolicode-php']['conf_dir'] = "/etc/php5/apache2"
 node.default['jolicode-php']['config']['display_errors'] = "On"
 
@@ -49,25 +49,25 @@ include_recipe "selfsigned_certificate"
 include_recipe "jolicode-php"
 include_recipe "jolicode-php::php"
 include_recipe "jolicode-php::composer"
-include_recipe "jolicode-php::ext-apc"
 include_recipe "jolicode-php::ext-curl"
 include_recipe "jolicode-php::ext-gd"
 include_recipe "jolicode-php::ext-imagick"
 include_recipe "jolicode-php::ext-intl"
 include_recipe "jolicode-php::ext-mbstring"
 include_recipe "jolicode-php::ext-twig"
-include_recipe "jolicode-php::ext-xdebug"
 include_recipe "mysql"
 include_recipe "mysql::server"
 include_recipe "database"
 include_recipe "database::mysql"
 
 # run composer in project root
-jolicode_php_composer "Install/update Composer dependencies" do
-    cwd "/var/www"
-    user "vagrant"
-    options "--dev --quiet"
-    action :update
+if ::File.exists?("/var/www/composer.json")
+    jolicode_php_composer "Install/update Composer dependencies" do
+        cwd "/var/www"
+        user "vagrant"
+        options "--dev"
+        action :update
+    end
 end
 
 # create mysql DB
