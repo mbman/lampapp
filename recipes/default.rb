@@ -71,6 +71,10 @@ package "php5-intl" do
 end
 include_recipe "apache2"
 
+# composer global install
+execute "curl -sS https://getcomposer.org/installer | php"
+execute "sudo mv composer.phar /usr/local/bin/composer"
+
 # create mysql DB
 mysql_database node['lampapp']['name'] do
     connection ({
