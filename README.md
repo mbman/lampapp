@@ -18,12 +18,10 @@ REQUIREMENTS
 
 The following cookbooks are required:
 
-    - apt 1.8.0
+    - apt 1.8.2
     - apache2
     - mysql
-    - mysql::server
     - database
-    - database::mysql
     - jolicode-php
     - selfsigned_certificate
 
