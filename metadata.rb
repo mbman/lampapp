@@ -18,3 +18,18 @@ depends "mysql"
 depends "mysql::server"
 depends "database"
 depends "database::mysql"
+
+attribute "lamapp/name",
+  :display_name => "App name",
+  :description => "The name for your 'name.dev' domain and mysql db",
+  :default => "vagrant"
+
+attribute "lamapp/password",
+  :display_name => "App password",
+  :description => "Used for mysql root user, ssl passphrase",
+  :default => "foobar"
+
+attribute "lamapp/ip",
+  :display_name => "IP",
+  :description => "Used as static virtualhost IP and mysql remote connections",
+  :default => "192.168.56.101"
