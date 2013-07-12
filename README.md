@@ -8,9 +8,10 @@ Creates a MySQL DB and apache2 virtual host with ssl support.
 Virtual host alias is "vagrant.dev" with wildcard subdomains and 
 auto-generated self-signed SSL cerfiticate support.
 
-Current project dir will be shared to virtualhost's root dir.
+Current project dir is shared to virtualhost's webroot.
 
 Mysql can be accessed remotley via node["lampapp"]["ip"] attribute IP as root:foobar
+
 
 REQUIREMENTS
 ============
