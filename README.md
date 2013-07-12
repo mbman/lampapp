@@ -25,6 +25,7 @@ The following cookbooks are required:
     - database
     - database::mysql
     - jolicode-php
+    - selfsigned_certificate
 
 More Cookbooks info
 

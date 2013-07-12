@@ -6,6 +6,19 @@ node.default['jolicode-php']['dotdeb'] = true
 node.default['jolicode-php']['conf_dir'] = "/etc/php5/apache2"
 node.default['jolicode-php']['config']['display_errors'] = "On"
 
+# SSL certificate
+node.set['selfsigned_certificate'] = {
+    :country => "HR",
+    :state => "HR",
+    :city => "MyCity",
+    :orga => "MyOrg",
+    :depart => "MyDept",
+    :cn => "*.#{node['lampapp']['name']}.dev",
+    :email => "admin@localhost",
+    :destination => "/etc/apache2/ssl/",
+    :sslpassphrase => node['lampapp']['password']
+}
+
 node.set['mysql']['server_root_password'] = node['lampapp']['password']
 node.set['mysql']['server_repl_password'] = node['lampapp']['password']
 node.set['mysql']['server_debian_password'] = node['lampapp']['password']
@@ -32,6 +45,7 @@ end
 execute "apt-get update"
 
 include_recipe "apache2"
+include_recipe "selfsigned_certificate"
 include_recipe "jolicode-php"
 include_recipe "jolicode-php::php"
 include_recipe "jolicode-php::composer"
