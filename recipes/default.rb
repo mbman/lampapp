@@ -66,7 +66,7 @@ include_recipe "database::mysql"
 jolicode_php_composer "Install/update Composer dependencies" do
     cwd "/var/www"
     user "vagrant"
-    options "--dev"
+    options "--dev --quiet"
     action :update
 end
 
