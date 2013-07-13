@@ -18,20 +18,18 @@ REQUIREMENTS
 
 The following cookbooks are required:
 
-    - apt 1.8.2
-    - apache2
-    - mysql
-    - database
-    - openssl
-    - xml
-    - php
-    - selfsigned_certificate
+  - apt 1.8.2
+  - apache2
+  - mysql
+  - database
+  - openssl
+  - xml
+  - php
+  - selfsigned_certificate
 
-More Cookbooks info
-
-    http://community.opscode.com/cookbooks
+More Cookbooks info: http://community.opscode.com/cookbooks
 
 EXAMPLE VAGRANT SETUP
 =====================
-
-    https://github.com/mbman/lampapp-vagrant
+  
+https://github.com/mbman/lampapp-vagrant
