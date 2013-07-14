@@ -1,14 +1,14 @@
 <VirtualHost *:80>
     ServerAdmin admin@localhost
-    ServerName <%= @params[:name] %>.dev
-    ServerAlias www.<%= @params[:name] %>.dev *.<%= @params[:name] %>.dev  *.<%= @params[:name] %>.*
+    ServerName <%= @name %>.dev
+    ServerAlias www.<%= @name %>.dev *.<%= @name %>.dev  *.<%= @name %>.*
 
-    DocumentRoot /var/www
+    DocumentRoot <%= @path %>
     <Directory />
         Options FollowSymLinks
         AllowOverride None
     </Directory>
-    <Directory /var/www>
+    <Directory <%= @path %>>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
@@ -17,21 +17,21 @@
 
     LogLevel info
 
-    ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-error.log
-    CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-access.log combined
+    ErrorLog <%= node['apache']['log_dir'] %>/<%= @name %>-error.log
+    CustomLog <%= node['apache']['log_dir'] %>/<%= @name %>-access.log combined
 
 </VirtualHost>
 <VirtualHost *:443>
     ServerAdmin admin@localhost
-    ServerName <%= @params[:name] %>.dev
-    ServerAlias www.<%= @params[:name] %>.dev *.<%= @params[:name] %>.dev  *.<%= @params[:name] %>.*
+    ServerName <%= @name %>.dev
+    ServerAlias www.<%= @name %>.dev *.<%= @name %>.dev  *.<%= @name %>.*
 
-    DocumentRoot /var/www
+    DocumentRoot <%= @path %>
     <Directory />
         Options FollowSymLinks
         AllowOverride None
     </Directory>
-    <Directory /var/www>
+    <Directory <%= @path %>>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
@@ -40,8 +40,8 @@
     
     LogLevel info
 
-    ErrorLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-ssl-error.log
-    CustomLog <%= node['apache']['log_dir'] %>/<%= @params[:name] %>-ssl-access.log combined
+    ErrorLog <%= node['apache']['log_dir'] %>/<%= @name %>-ssl-error.log
+    CustomLog <%= node['apache']['log_dir'] %>/<%= @name %>-ssl-access.log combined
 
     SSLEngine on
     SSLOptions +StrictRequire

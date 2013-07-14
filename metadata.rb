@@ -33,3 +33,8 @@ attribute "lamapp/ip",
   :display_name => "IP",
   :description => "Used as static virtualhost IP and mysql remote connections",
   :default => "192.168.56.101"
+
+attribute "lamapp/path",
+  :display_name => "Public directory path",
+  :description => "Public web directory path relative to your web root",
+  :default => ""

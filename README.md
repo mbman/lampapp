@@ -8,7 +8,8 @@ Creates a MySQL DB and apache2 virtual host with ssl support.
 Virtual host alias is "vagrant.dev" with wildcard subdomains and 
 auto-generated self-signed SSL cerfiticate support.
 
-Set "config.vm.synced_folder" in your Vagrantfile to the public web directory path.
+Set "config.vm.synced_folder" in your Vagrantfile to the root web directory path,
+and the "config.lampapp.path" to the relative path of your public web directory.
 
 Mysql can be accessed remotley via node["lampapp"]["ip"] attribute IP as root:foobar
 

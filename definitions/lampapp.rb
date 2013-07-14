@@ -1,3 +1,5 @@
+require 'pathname'
+    
 define :lampapp, :template => "lampapp.conf.erb" do
 
   app_name = params[:name]
@@ -12,6 +14,7 @@ define :lampapp, :template => "lampapp.conf.erb" do
     end
     variables(
       :name => app_name,
+      :path => Pathname.new("/var/www/#{node['lampapp']['path']}").cleanpath,
       :params => params
     )
     if ::File.exists?("#{node['apache']['dir']}/sites-enabled/#{app_name}.conf")
