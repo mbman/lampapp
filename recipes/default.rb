@@ -45,6 +45,7 @@ include_recipe "mysql::server"
 include_recipe "database"
 include_recipe "database::mysql"
 include_recipe "xml"
+include_recipe "git"
 include_recipe "php"
 php_pear "xdebug" do
   zend_extensions ['xdebug.so']

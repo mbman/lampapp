@@ -26,6 +26,7 @@ The following cookbooks are required:
   - openssl
   - xml
   - php
+  - git
   - selfsigned_certificate
 
 More Cookbooks info: http://community.opscode.com/cookbooks
