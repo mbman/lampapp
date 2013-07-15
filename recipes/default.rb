@@ -1,3 +1,4 @@
+require 'fileutils'
 node.set['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires ssl}
 node.set['apache']['default_site_enabled'] = false
 
@@ -50,6 +51,11 @@ include_recipe "database"
 include_recipe "database::mysql"
 include_recipe "xml"
 include_recipe "git"
+
+# create php's apache2 config dir
+phpiniDir = "/etc/php5/apache2"
+FileUtils.mkdir_p(phpiniDir) unless File.exists?(phpiniDir)
+
 include_recipe "php"
 php_pear "xdebug" do
   zend_extensions ['xdebug.so']
