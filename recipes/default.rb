@@ -1,6 +1,10 @@
 node.set['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires ssl}
 node.set['apache']['default_site_enabled'] = false
 
+node.set['php']['conf_dir'] = "/etc/php5/apache2"
+node.set['php']['directives']['display_errors'] = "On"
+node.set['php']['directives']['date.timezone'] = "UTC"
+
 # SSL certificate
 node.set['selfsigned_certificate'] = {
     :country => "HR",
