@@ -44,13 +44,17 @@ end
 
 execute "apt-get update"
 
-include_recipe "selfsigned_certificate"
-include_recipe "mysql"
-include_recipe "mysql::server"
-include_recipe "database"
-include_recipe "database::mysql"
-include_recipe "xml"
-include_recipe "git"
+[
+  "selfsigned_certificate",
+  "mysql",
+  "mysql::server",
+  "database",
+  "database::mysql",
+  "xml",
+  "git"
+].each do |recipe|
+  include_recipe recipe
+end
 
 # create php's apache2 config dir
 phpiniDir = "/etc/php5/apache2"
@@ -68,20 +72,17 @@ end
 php_pear "memcache" do
   action :install
 end
-package "php5-mysql" do
-  action :install
-end
-package "php5-gd" do
-  action :install
-end
-package "php5-imagick" do
-  action :install
-end
-package "php5-curl" do
-  action :install
-end
-package "php5-intl" do
-  action :install
+
+[
+  "php5-mysql",
+  "php5-gd",
+  "php5-imagick",
+  "php5-curl",
+  "php5-intl"
+].each do |php_package|
+  package php_package do
+    action :install
+  end
 end
 include_recipe "apache2"
 
