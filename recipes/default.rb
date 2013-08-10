@@ -78,7 +78,8 @@ end
   "php5-gd",
   "php5-imagick",
   "php5-curl",
-  "php5-intl"
+  "php5-intl",
+  "php5-xsl"
 ].each do |php_package|
   package php_package do
     action :install
