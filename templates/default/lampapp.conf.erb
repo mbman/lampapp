@@ -9,6 +9,7 @@
         AllowOverride None
     </Directory>
     <Directory <%= @path %>>
+        SetEnv APPLICATION_ENV "development"
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
@@ -32,6 +33,7 @@
         AllowOverride None
     </Directory>
     <Directory <%= @path %>>
+        SetEnv APPLICATION_ENV "development"
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
