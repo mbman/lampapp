@@ -4,12 +4,12 @@
     ServerAlias www.<%= @name %>.dev *.<%= @name %>.dev  *.<%= @name %>.*
 
     DocumentRoot <%= @path %>
+    SetEnv APPLICATION_ENV "development"
     <Directory />
         Options FollowSymLinks
         AllowOverride None
     </Directory>
     <Directory <%= @path %>>
-        SetEnv APPLICATION_ENV "development"
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
@@ -28,12 +28,12 @@
     ServerAlias www.<%= @name %>.dev *.<%= @name %>.dev  *.<%= @name %>.*
 
     DocumentRoot <%= @path %>
+    SetEnv APPLICATION_ENV "development"
     <Directory />
         Options FollowSymLinks
         AllowOverride None
     </Directory>
     <Directory <%= @path %>>
-        SetEnv APPLICATION_ENV "development"
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
         Order allow,deny
