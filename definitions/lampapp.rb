@@ -1,8 +1,15 @@
 require 'pathname'
-    
+
 define :lampapp, :template => "lampapp.conf.erb" do
 
   app_name = params[:name]
+
+  template "/etc/php5/apache2/conf.d/xdebug-remote.ini" do
+    source "xdebug-remote.conf.erb"
+    owner "root"
+    group node['apache']['root_group']
+    mode 0644
+  end
 
   template "#{node['apache']['dir']}/sites-available/#{app_name}.conf" do
     source params[:template]
@@ -20,9 +27,5 @@ define :lampapp, :template => "lampapp.conf.erb" do
     if ::File.exists?("#{node['apache']['dir']}/sites-enabled/#{app_name}.conf")
       notifies :reload, resources(:service => "apache2"), :delayed
     end
-  end
-
-  apache_site "#{app_name}.conf" do
-    enable true
   end
 end

@@ -39,7 +39,7 @@
         Order allow,deny
         allow from All
     </Directory>
-    
+
     LogLevel info
 
     ErrorLog <%= node['apache']['log_dir'] %>/<%= @name %>-ssl-error.log

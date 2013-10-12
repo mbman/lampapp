@@ -94,8 +94,8 @@ execute "sudo mv composer.phar /usr/local/bin/composer"
 # create mysql DB
 mysql_database node['lampapp']['name'] do
     connection ({
-        :host => node['lampapp']['ip'], 
-        :username => 'root', 
+        :host => node['lampapp']['ip'],
+        :username => 'root',
         :password => node['mysql']['server_root_password']
     })
     action :create
