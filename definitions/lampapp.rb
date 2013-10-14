@@ -28,4 +28,8 @@ define :lampapp, :template => "lampapp.conf.erb" do
       notifies :reload, resources(:service => "apache2"), :delayed
     end
   end
+
+  apache_site "#{app_name}.conf" do
+    enable true
+  end
 end
