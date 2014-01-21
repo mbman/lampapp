@@ -15,8 +15,6 @@ depends "xml"
 depends "apache2"
 depends "php"
 depends "mysql"
-depends "mysql"
-depends "database"
 depends "database"
 
 attribute "lamapp/name",
