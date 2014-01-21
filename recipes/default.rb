@@ -58,12 +58,9 @@ phpiniDir = "/etc/php5/apache2"
 FileUtils.mkdir_p(phpiniDir) unless File.exists?(phpiniDir)
 
 include_recipe "php"
-php_pear "xdebug" do
-  zend_extensions ['xdebug.so']
-  action :install
-end
 
 [
+  "php5-xdebug",
   "php-apc",
   "php5-mysql",
   "php5-gd",
