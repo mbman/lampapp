@@ -32,12 +32,23 @@ node.normal['mysql']['bind_address'] = node['lampapp']['ip']
   "apt",
   "build-essential",
   "selfsigned_certificate",
+  "xml",
+  "git"
+].each do |recipe|
+  include_recipe recipe
+end
+
+execute "compile-time-apt-get-update" do
+  command "apt-get update"
+  ignore_failure true
+  action :nothing
+end.run_action(:run)
+
+[
   "mysql",
   "mysql::server",
   "database",
   "database::mysql",
-  "xml",
-  "git"
 ].each do |recipe|
   include_recipe recipe
 end
@@ -51,15 +62,13 @@ php_pear "xdebug" do
   zend_extensions ['xdebug.so']
   action :install
 end
-php_pear "memcache" do
-  action :install
-end
 
 [
   "php-apc",
   "php5-mysql",
   "php5-gd",
   "php5-imagick",
+  "php5-memcached",
   "php5-curl",
   "php5-intl",
   "php5-xsl"
