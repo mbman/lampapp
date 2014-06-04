@@ -45,7 +45,6 @@ execute "compile-time-apt-get-update" do
 end.run_action(:run)
 
 [
-  "mysql",
   "mysql::server",
   "database",
   "database::mysql",
