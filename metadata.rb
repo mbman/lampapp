@@ -1,4 +1,4 @@
-name              "LAMPapp"
+name              "lampapp"
 maintainer        "Mario Baricevic"
 maintainer_email  "mario.baricevic@gmail.com"
 license           "GPL v3"
