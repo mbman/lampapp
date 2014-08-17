@@ -28,12 +28,11 @@ The following cookbooks are required:
   - php
   - git
   - selfsigned_certificate
+  - sphinx
 
 More Cookbooks info: http://community.opscode.com/cookbooks
 
-EXAMPLE VAGRANT SETUP
+EXAMPLE VAGRANT USAGE
 ---------------------
 
-Clone this repo into your existing project to get your Vagrant server up in seconds:
-  
 https://github.com/mbman/lampapp-vagrant
