@@ -28,8 +28,21 @@ node.normal['mysql']['remove_test_database'] = true
 node.normal['mysql']['allow_remote_root'] = true
 node.normal['mysql']['bind_address'] = node['lampapp']['ip']
 
+node.normal[:sphinx][:use_mysql] = true
+node.normal[:sphinx][:version] = '2.1.9'
+node.normal['build-essential']['compile_time'] = true
+node.normal["percona"]["use_percona_repos"] = false
+node.normal['percona']['skip_configure'] = true
+node.normal["percona"]["client"]["packages"] = []
+
+include_recipe "apt"
+execute "compile-time-apt-get-update" do
+  command "apt-get update"
+  ignore_failure true
+  action :nothing
+end.run_action(:run)
+
 [
-  "apt",
   "build-essential",
   "selfsigned_certificate",
   "xml",
@@ -38,13 +51,8 @@ node.normal['mysql']['bind_address'] = node['lampapp']['ip']
   include_recipe recipe
 end
 
-execute "compile-time-apt-get-update" do
-  command "apt-get update"
-  ignore_failure true
-  action :nothing
-end.run_action(:run)
-
 [
+  "mysql::client",
   "mysql::server",
   "database",
   "database::mysql",
@@ -75,6 +83,7 @@ include_recipe "php"
   end
 end
 include_recipe "apache2"
+include_recipe "sphinx::source"
 
 # composer global install
 execute "curl -sS https://getcomposer.org/installer | php"
