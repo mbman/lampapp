@@ -29,7 +29,7 @@ define :lampapp, :template => "lampapp.conf.erb" do
     end
   end
 
-  apache_site "#{app_name}.conf" do
+  apache_site "#{app_name}" do
     enable true
   end
 end
