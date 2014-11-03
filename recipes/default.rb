@@ -29,7 +29,7 @@ node.normal['mysql']['allow_remote_root'] = true
 node.normal['mysql']['bind_address'] = node['lampapp']['ip']
 
 node.normal[:sphinx][:use_mysql] = true
-node.normal[:sphinx][:version] = '2.1.9'
+node.normal[:sphinx][:version] = '2.2.5'
 node.normal['build-essential']['compile_time'] = true
 node.normal["percona"]["use_percona_repos"] = false
 node.normal['percona']['skip_configure'] = true
