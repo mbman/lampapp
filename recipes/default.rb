@@ -47,6 +47,7 @@ end
 
 mysql_service 'vagrant' do
   port '3306'
+  bind_address node['lampapp']['ip']
   version '5.5'
   initial_root_password node['lampapp']['password']
   action [:create, :start]
@@ -55,6 +56,10 @@ end
 mysql_config 'vagrant' do
   source 'mysql.conf.erb'
   notifies :restart, 'mysql_service[vagrant]'
+  action :create
+end
+
+mysql_client 'default' do
   action :create
 end
 
