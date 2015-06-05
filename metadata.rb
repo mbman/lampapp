@@ -18,6 +18,7 @@ depends "mysql"
 depends "database"
 depends "sphinx"
 depends "redisio"
+depends "git"
 
 attribute "lamapp/name",
   :display_name => "App name",
