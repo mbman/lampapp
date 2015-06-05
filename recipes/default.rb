@@ -49,7 +49,6 @@ end.run_action(:run)
 
 [
   "build-essential",
-  "ssl_certificate",
   "xml",
   "git"
 ].each do |recipe|
