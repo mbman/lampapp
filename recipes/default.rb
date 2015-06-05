@@ -94,7 +94,7 @@ include_recipe "sphinx::source"
 execute "curl -sS https://getcomposer.org/installer | php"
 execute "sudo mv composer.phar /usr/local/bin/composer"
 
-mysql_database 'vagrant' do
+mysql_database node['lampapp']['name'] do
   connection(
     :host     => node['lampapp']['ip'],
     :username => 'root',
