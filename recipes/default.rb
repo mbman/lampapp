@@ -4,19 +4,24 @@ node.normal['apache']['default_site_enabled'] = false
 
 node.normal['php']['conf_dir'] = "/etc/php5/apache2"
 node.normal['php']['directives']['display_errors'] = "On"
+node.normal['ssl_certificate']['key_dir']= "/etc/apache2/ssl/"
+node.normal['ssl_certificate']['cert_dir']= "/etc/apache2/ssl/"
 
 # SSL certificate
-node.normal['selfsigned_certificate'] = {
+node.default['server'] = {
     :country => "HR",
     :state => "HR",
     :city => "MyCity",
-    :orga => "MyOrg",
-    :depart => "MyDept",
-    :cn => "*.#{node['lampapp']['name']}.dev",
-    :email => "admin@localhost",
-    :destination => "/etc/apache2/ssl/",
-    :sslpassphrase => node['lampapp']['password']
+    :organization => "MyOrg",
+    :department => "MyDept",
+    :common_name => "*.#{node['lampapp']['name']}.dev",
+    :email => "admin@localhost"
 }
+node.default['server']['ssl_key']['source'] = 'self-signed'
+
+cert = ssl_certificate 'lamapp_ssl' do
+  namespace node['lamapp_ssl']
+end
 
 node.normal['mysql']['server_root_password'] = node['lampapp']['password']
 node.normal['mysql']['server_repl_password'] = node['lampapp']['password']
@@ -44,7 +49,7 @@ end.run_action(:run)
 
 [
   "build-essential",
-  "selfsigned_certificate",
+  "ssl_certificate",
   "xml",
   "git"
 ].each do |recipe|
@@ -56,6 +61,8 @@ end
   "mysql::server",
   "database",
   "database::mysql",
+  "redisio",
+  "redisio::enable",
 ].each do |recipe|
   include_recipe recipe
 end
