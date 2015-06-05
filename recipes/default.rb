@@ -58,15 +58,6 @@ mysql_config 'vagrant' do
   action :create
 end
 
-mysql_database 'vagrant' do
-  connection(
-    :host     => node['lampapp']['ip'],
-    :username => 'root',
-    :password => node['lampapp']['password']
-  )
-  action :create
-end
-
 [
   "redisio",
   "redisio::enable",
@@ -103,18 +94,13 @@ include_recipe "sphinx::source"
 execute "curl -sS https://getcomposer.org/installer | php"
 execute "sudo mv composer.phar /usr/local/bin/composer"
 
-service "mysql" do
-  action :restart
-end
-
-# create mysql DB
-mysql_database node['lampapp']['name'] do
-    connection ({
-        :host => node['lampapp']['ip'],
-        :username => 'root',
-        :password => node['mysql']['server_root_password']
-    })
-    action :create
+mysql_database 'vagrant' do
+  connection(
+    :host     => node['lampapp']['ip'],
+    :username => 'root',
+    :password => node['lampapp']['password']
+  )
+  action :create
 end
 
 # default app
