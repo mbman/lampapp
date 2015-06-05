@@ -4,8 +4,8 @@ node.normal['apache']['default_site_enabled'] = false
 
 node.normal['php']['conf_dir'] = "/etc/php5/apache2"
 node.normal['php']['directives']['display_errors'] = "On"
-node.normal['ssl_certificate']['key_dir']= "/etc/apache2/ssl/"
-node.normal['ssl_certificate']['cert_dir']= "/etc/apache2/ssl/"
+node.normal['ssl_certificate']['key_dir']= "/home/vagrant/"
+node.normal['ssl_certificate']['cert_dir']= "/home/vagrant/"
 
 # SSL certificate
 node.default['server'] = {
