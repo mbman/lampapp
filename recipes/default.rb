@@ -23,16 +23,6 @@ cert = ssl_certificate 'lamapp_ssl' do
   namespace node['lamapp_ssl']
 end
 
-node.normal['mysql']['server_root_password'] = node['lampapp']['password']
-node.normal['mysql']['server_repl_password'] = node['lampapp']['password']
-node.normal['mysql']['server_debian_password'] = node['lampapp']['password']
-node.normal['mysql']['remove_anonymous_users'] = true
-node.normal['mysql']['remove_test_database'] = true
-
-# allow mysqladmin connections from any host
-node.normal['mysql']['allow_remote_root'] = true
-node.normal['mysql']['bind_address'] = node['lampapp']['ip']
-
 node.normal[:sphinx][:use_mysql] = true
 node.normal[:sphinx][:version] = '2.2.5'
 node.normal['build-essential']['compile_time'] = true
@@ -55,11 +45,29 @@ end.run_action(:run)
   include_recipe recipe
 end
 
+mysql_service 'vagrant' do
+  port '3306'
+  version '5.5'
+  initial_root_password node['lampapp']['password']
+  action [:create, :start]
+end
+
+mysql_config 'vagrant' do
+  source 'mysql.conf.erb'
+  notifies :restart, 'mysql_service[vagrant]'
+  action :create
+end
+
+mysql_database 'vagrant' do
+  connection(
+    :host     => node['lampapp']['ip'],
+    :username => 'root',
+    :password => node['lampapp']['password']
+  )
+  action :create
+end
+
 [
-  "mysql::client",
-  "mysql::server",
-  "database",
-  "database::mysql",
   "redisio",
   "redisio::enable",
 ].each do |recipe|
