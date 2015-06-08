@@ -40,7 +40,7 @@ end.run_action(:run)
 [
   "build-essential",
   "xml",
-  "git"
+  "git",
   "curl::default"
 ].each do |recipe|
   include_recipe recipe
