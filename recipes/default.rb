@@ -8,7 +8,7 @@ node.normal['ssl_certificate']['key_dir']= "/home/vagrant/"
 node.normal['ssl_certificate']['cert_dir']= "/home/vagrant/"
 
 # SSL certificate
-node.default['server'] = {
+node.default['lampapp_ssl'] = {
     :country => "HR",
     :state => "HR",
     :city => "MyCity",
@@ -17,10 +17,10 @@ node.default['server'] = {
     :common_name => "*.#{node['lampapp']['name']}.dev",
     :email => "admin@localhost"
 }
-node.default['server']['ssl_key']['source'] = 'self-signed'
+node.default['lampapp_ssl']['ssl_key']['source'] = 'self-signed'
 
-cert = ssl_certificate 'lamapp_ssl' do
-  namespace node['lamapp_ssl']
+cert = ssl_certificate 'lampapp_ssl' do
+  namespace node['lampapp_ssl']
 end
 
 node.normal[:sphinx][:use_mysql] = true
