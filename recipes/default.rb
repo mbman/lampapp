@@ -97,7 +97,6 @@ include_recipe "sphinx::source"
 
 # composer global install
 execute "curl -sS https://getcomposer.org/installer | php"
-execute "sudo mv composer.phar /usr/local/bin/composer"
 
 mysql_database node['lampapp']['name'] do
   connection(
