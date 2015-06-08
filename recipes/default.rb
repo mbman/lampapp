@@ -86,7 +86,8 @@ include_recipe "php"
   "php5-curl",
   "php5-intl",
   "php5-xsl",
-  "php5-mcrypt"
+  "php5-mcrypt",
+  "php5-redis"
 ].each do |php_package|
   package php_package do
     action :install
