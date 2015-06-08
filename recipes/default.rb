@@ -86,7 +86,8 @@ include_recipe "php"
   "php5-curl",
   "php5-intl",
   "php5-xsl",
-  "php5-mcrypt"
+  "php5-mcrypt",
+  "php5-redis"
 ].each do |php_package|
   package php_package do
     action :install
@@ -97,7 +98,6 @@ include_recipe "sphinx::source"
 
 # composer global install
 execute "curl -sS https://getcomposer.org/installer | php"
-execute "sudo mv composer.phar /usr/local/bin/composer"
 
 mysql_database node['lampapp']['name'] do
   connection(
