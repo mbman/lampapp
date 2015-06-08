@@ -41,6 +41,7 @@ end.run_action(:run)
   "build-essential",
   "xml",
   "git"
+  "curl::default"
 ].each do |recipe|
   include_recipe recipe
 end
@@ -101,7 +102,7 @@ include_recipe "apache2"
 include_recipe "sphinx::source"
 
 # composer global install
-execute "curl -sS https://getcomposer.org/installer | php"
+execute "curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer"
 
 mysql_database node['lampapp']['name'] do
   connection(
