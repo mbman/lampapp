@@ -12,8 +12,7 @@
     <Directory <%= @path %>>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
-        Order allow,deny
-        allow from All
+        Require all granted
     </Directory>
 
     LogLevel info
@@ -36,8 +35,7 @@
     <Directory <%= @path %>>
         Options Indexes FollowSymLinks MultiViews
         AllowOverride All
-        Order allow,deny
-        allow from All
+        Require all granted
     </Directory>
 
     LogLevel info
@@ -47,6 +45,6 @@
 
     SSLEngine on
     SSLOptions +StrictRequire
-    SSLCertificateFile /home/vagrant/server.crt
-    SSLCertificateKeyFile /home/vagrant/server.key
+    SSLCertificateFile /home/vagrant/lampapp_ssl.pem
+    SSLCertificateKeyFile /home/vagrant/lampapp_ssl.key
 </VirtualHost>

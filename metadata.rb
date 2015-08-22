@@ -4,7 +4,7 @@ maintainer_email  "mario.baricevic@gmail.com"
 license           "GPL v3"
 description       "Installs and configures a full LAMP server for a webapp"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "0.1.7"
+version           "0.2.1"
 recipe            "lampapp", "Includes the LAMP recipe to configure a web app server"
 
 depends "apt"
@@ -19,6 +19,8 @@ depends 'database'
 depends "sphinx"
 depends "redisio"
 depends "git"
+depends "mysql2_chef_gem"
+depends "curl"
 
 attribute "lamapp/name",
   :display_name => "App name",

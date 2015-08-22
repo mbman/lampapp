@@ -8,7 +8,7 @@ node.normal['ssl_certificate']['key_dir']= "/home/vagrant/"
 node.normal['ssl_certificate']['cert_dir']= "/home/vagrant/"
 
 # SSL certificate
-node.default['server'] = {
+node.default['lampapp_ssl'] = {
     :country => "HR",
     :state => "HR",
     :city => "MyCity",
@@ -17,10 +17,10 @@ node.default['server'] = {
     :common_name => "*.#{node['lampapp']['name']}.dev",
     :email => "admin@localhost"
 }
-node.default['server']['ssl_key']['source'] = 'self-signed'
+node.default['lampapp_ssl']['ssl_key']['source'] = 'self-signed'
 
-cert = ssl_certificate 'lamapp_ssl' do
-  namespace node['lamapp_ssl']
+cert = ssl_certificate 'lampapp_ssl' do
+  namespace node['lampapp_ssl']
 end
 
 node.normal[:sphinx][:use_mysql] = true
@@ -40,7 +40,8 @@ end.run_action(:run)
 [
   "build-essential",
   "xml",
-  "git"
+  "git",
+  "curl::default"
 ].each do |recipe|
   include_recipe recipe
 end
@@ -61,6 +62,10 @@ end
 
 mysql_client 'default' do
   action :create
+end
+
+mysql2_chef_gem 'default' do
+  action :install
 end
 
 [
@@ -86,7 +91,8 @@ include_recipe "php"
   "php5-curl",
   "php5-intl",
   "php5-xsl",
-  "php5-mcrypt"
+  "php5-mcrypt",
+  "php5-redis"
 ].each do |php_package|
   package php_package do
     action :install
@@ -96,8 +102,7 @@ include_recipe "apache2"
 include_recipe "sphinx::source"
 
 # composer global install
-execute "curl -sS https://getcomposer.org/installer | php"
-execute "sudo mv composer.phar /usr/local/bin/composer"
+execute "curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer"
 
 mysql_database node['lampapp']['name'] do
   connection(
