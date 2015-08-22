@@ -49,7 +49,6 @@ end
 mysql_service 'vagrant' do
   port '3306'
   bind_address '0.0.0.0'
-  version '5.5'
   initial_root_password node['lampapp']['password']
   action [:create, :start]
 end
@@ -106,7 +105,7 @@ execute "curl -sS https://getcomposer.org/installer | php -- --install-dir=bin -
 
 mysql_database node['lampapp']['name'] do
   connection(
-    :host     => node['lampapp']['ip'],
+    :host     => '0.0.0.0',
     :username => 'root',
     :password => node['lampapp']['password']
   )
