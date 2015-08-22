@@ -11,7 +11,7 @@ auto-generated self-signed SSL cerfiticate support.
 Set `config["lampapp"]["path"]` to the path of your public web directory relative to web root.
 
 
-Mysql can be accessed remotley via `node["lampapp"]["ip"]` attribute IP as root:foobar
+Mysql can be accessed via IP `0.0.0.0` as root:foobar
 
 
 REQUIREMENTS
