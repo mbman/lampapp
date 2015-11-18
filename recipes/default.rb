@@ -1,4 +1,5 @@
 require 'fileutils'
+node.normal['apache']['version'] = "2.4"
 node.normal['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires ssl}
 node.normal['apache']['default_site_enabled'] = false
 
@@ -78,11 +79,13 @@ end
 phpiniDir = "/etc/php5/apache2"
 FileUtils.mkdir_p(phpiniDir) unless File.exists?(phpiniDir)
 
-include_recipe "php"
+php_fpm_pool "default" do
+  action :install
+end
 
 [
+  "php5-fpm",
   "php5-xdebug",
-  "php-apc",
   "php5-mysql",
   "php5-gd",
   "php5-imagick",
