@@ -14,8 +14,16 @@
         AllowOverride All
         Require all granted
     </Directory>
+    <Location />
+      Order allow,deny
+      Allow from all
+    </Location>
+
 
     LogLevel info
+
+    ProxyPassMatch ^/(.*\.php(/.*)?)$ unix:/var/run/php5-fpm.sock|fcgi://localhost<%= @path %>
+    DirectoryIndex /index.php index.php
 
     ErrorLog <%= node['apache']['log_dir'] %>/<%= @name %>-error.log
     CustomLog <%= node['apache']['log_dir'] %>/<%= @name %>-access.log combined
@@ -37,11 +45,18 @@
         AllowOverride All
         Require all granted
     </Directory>
+    <Location />
+      Order allow,deny
+      Allow from all
+    </Location>
 
     LogLevel info
 
     ErrorLog <%= node['apache']['log_dir'] %>/<%= @name %>-ssl-error.log
     CustomLog <%= node['apache']['log_dir'] %>/<%= @name %>-ssl-access.log combined
+
+    ProxyPassMatch ^/(.*\.php(/.*)?)$ unix:/var/run/php5-fpm.sock|fcgi://localhost<%= @path %>
+    DirectoryIndex /index.php index.php
 
     SSLEngine on
     SSLOptions +StrictRequire
