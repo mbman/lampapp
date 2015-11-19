@@ -1,6 +1,6 @@
 require 'fileutils'
 node.normal['apache']['version'] = "2.4"
-node.normal['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires ssl}
+node.normal['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires ssl proxy_fcgi}
 node.normal['apache']['default_site_enabled'] = false
 
 node.normal['php']['conf_dir'] = "/etc/php5/apache2"
@@ -79,12 +79,19 @@ end
 phpiniDir = "/etc/php5/apache2"
 FileUtils.mkdir_p(phpiniDir) unless File.exists?(phpiniDir)
 
-php_fpm_pool "default" do
-  action :install
+include_recipe "apache2"
+include_recipe "sphinx::source"
+
+mysql_database node['lampapp']['name'] do
+  connection(
+    :host     => '0.0.0.0',
+    :username => 'root',
+    :password => node['lampapp']['password']
+  )
+  action :create
 end
 
 [
-  "php5-fpm",
   "php5-xdebug",
   "php5-mysql",
   "php5-gd",
@@ -100,20 +107,13 @@ end
     action :install
   end
 end
-include_recipe "apache2"
-include_recipe "sphinx::source"
+
+php_fpm_pool "default" do
+  action :install
+end
 
 # composer global install
 execute "curl -sS https://getcomposer.org/installer | php -- --install-dir=bin --filename=composer"
-
-mysql_database node['lampapp']['name'] do
-  connection(
-    :host     => '0.0.0.0',
-    :username => 'root',
-    :password => node['lampapp']['password']
-  )
-  action :create
-end
 
 # default app
 lampapp node['lampapp']['name']
