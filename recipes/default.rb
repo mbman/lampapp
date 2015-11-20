@@ -1,6 +1,6 @@
 require 'fileutils'
 node.normal['apache']['version'] = "2.4"
-node.normal['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires ssl proxy_fcgi}
+node.normal['apache']['default_modules'] = %w{rewrite deflate headers php5 env expires ssl proxy proxy_fcgi}
 node.normal['apache']['default_site_enabled'] = false
 
 node.normal['php']['conf_dir'] = "/etc/php5/apache2"
