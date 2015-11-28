@@ -18,6 +18,10 @@
       Order allow,deny
       Allow from all
     </Location>
+    <Proxy *>
+    Require all granted
+    </Proxy>
+
 
 
     LogLevel info
@@ -49,6 +53,9 @@
       Order allow,deny
       Allow from all
     </Location>
+    <Proxy *>
+    Require all granted
+    </Proxy>
 
     LogLevel info
 
