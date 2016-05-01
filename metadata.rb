@@ -4,7 +4,7 @@ maintainer_email  "mario.baricevic@gmail.com"
 license           "GPL v3"
 description       "Installs and configures a full LAMP server for a webapp"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "0.2.7"
+version           "1.2.3"
 recipe            "lampapp", "Includes the LAMP recipe to configure a web app server"
 
 depends "apt"
@@ -12,7 +12,7 @@ depends "build-essential"
 depends "openssl"
 depends "ssl_certificate"
 depends "xml"
-depends "apache2", '~> 3.1'
+depends "apache2", '= 3.1.0'
 depends "php"
 depends 'mysql', '~> 6.0'
 depends 'database', '~> 4.0'
